@@ -20,5 +20,18 @@ module Pomodoro
       60.times { session.advance }
       session.completed?.should eq true
     end
+
+    it 'verifies correctly break' do
+      session = Session.new(1, true)
+
+      session.is_break?.should eq true
+      session.is_pomodoro?.should eq false
+    end
+
+    it 'verifies correctly pomodoro' do
+      session = Session.new(1, false)
+      session.is_break?.should eq false
+      session.is_pomodoro?.should eq true
+    end
   end
 end  

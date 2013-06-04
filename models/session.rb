@@ -2,9 +2,11 @@
 
 module Pomodoro
   class Session
-    def initialize(mins = 25)
+    def initialize(mins = 25, is_break = false)
       @minutes = mins
       @seconds = 0
+
+      @is_break = is_break
     end
 
     def advance
@@ -19,6 +21,14 @@ module Pomodoro
 
     def to_s
       "%02d:%02d" % [@minutes, @seconds]
+    end
+
+    def is_break?
+      @is_break
+    end
+
+    def is_pomodoro?
+      !@is_break
     end
   end
 end
