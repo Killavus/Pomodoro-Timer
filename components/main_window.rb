@@ -3,8 +3,9 @@ require 'Qt'
 module Pomodoro
   module Component
     class MainWindow < Qt::Widget
-      def initialize(parent = nil)
+      def initialize(gui, parent = nil)
         super(parent)
+        @gui = gui
 
         @menuBar = Qt::MenuBar.new
         @sessionsMenu = Qt::Menu.new(tr("Sessions"))

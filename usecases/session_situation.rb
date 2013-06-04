@@ -1,6 +1,8 @@
+require_relative '../models/session'
+
 module Pomodoro
   module Policy
-    class SessionSituation
+    module SessionSituation
       def during_session
         not @actual_session.nil? and not @actual_session.completed?
       end
@@ -14,11 +16,11 @@ module Pomodoro
       end
       
       def spawn_new_pomodoro
-        @actual_session = Session.new(25)
+        @actual_session = Pomodoro::Session.new(25)
       end
 
       def spawn_new_break
-        @actual_session = Session.new(5, true)
+        @actual_session = Pomodoro::Session.new(5, true)
       end
     end
   end

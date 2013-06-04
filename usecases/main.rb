@@ -1,18 +1,18 @@
-require_relative 'session_situations'
-require_relative '../models/session'
+require_relative 'session_situation'
 require_relative '../models/session_history'
 require_relative '../lib/helpers'
 
+using Endpoints
+
 module Pomodoro
   module Usecase
-    using Endpoints
-
     class Main 
       include Policy::SessionSituation
+
       endpoints :user_started_session, :user_interrupted_session
       
       def initialize
-        @sessions = SessionHistory.new
+        @sessions = Pomodoro::SessionHistory.new
         @actual_session = nil
       end
 
