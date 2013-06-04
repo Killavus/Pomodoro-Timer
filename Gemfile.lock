@@ -1,0 +1,14 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    aquarium (0.5.1)
+    eventmachine (1.0.3)
+    qtbindings (4.8.3.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  aquarium
+  eventmachine
+  qtbindings
