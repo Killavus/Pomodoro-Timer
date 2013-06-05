@@ -1,9 +1,9 @@
 require_relative '../lib/helpers'
 
+using Endpoints
+
 module Pomodoro
   module Adapter
-    using Endpoints
-
     class Timer
       endpoints :tick
                  
