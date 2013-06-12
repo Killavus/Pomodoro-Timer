@@ -3,6 +3,8 @@ require 'Qt'
 module Pomodoro
   module Component
     class MainWindow < Qt::Widget
+      slots 'action_clicked()'
+
       def initialize(gui, parent = nil)
         super(parent)
         @gui = gui
@@ -59,9 +61,38 @@ module Pomodoro
         @layout.addLayout(@actionLayout)
         @layout.addLayout(@labelLayout)
 
+        connect_controls
+
         @layout.setSizeConstraint(Qt::Layout::SetFixedSize)
         setLayout(@layout)
         resize(200, 100)
+      end
+
+      def connect_controls
+        connect(@actionButton, SIGNAL('clicked()'), self, 
+            SLOT('action_clicked()'))
+      end
+
+      def reset
+        @clockLabel.text = "00:00"
+      end
+
+      def set_session(session)
+        @clockLabel.text = session.to_s
+      end
+
+      def update(session)
+        set_session(session)
+      end
+
+      def action_clicked
+        if @actionButton.text == tr("Start New Session")
+          @actionButton.text = tr("Interrupt Session")
+        else
+          @actionButton.text = tr("Start New Session")
+        end
+
+        @gui.action_clicked
       end
     end
   end

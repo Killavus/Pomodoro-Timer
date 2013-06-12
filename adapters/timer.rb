@@ -1,21 +1,21 @@
 require_relative '../lib/helpers'
+require 'Qt'
 
 using Endpoints
 
 module Pomodoro
   module Adapter
-    class Timer
+    class Timer < Qt::Object
+      slots 'tick()'
       endpoints :tick
                  
       def initialize
-        Thread.new do
-          loop do
-            sleep 1
-            tick
-          end
-        end
-      end
+        super()
+        @timer = Qt::Timer.new(self)
+        @timer.start(1000)
 
+        connect(@timer, SIGNAL('timeout()'), self, SLOT('tick()'))
+      end
     end
   end
 end

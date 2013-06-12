@@ -9,7 +9,7 @@ module Pomodoro
     class Main 
       include Policy::SessionSituation
 
-      endpoints :user_started_session, :user_interrupted_session
+      endpoints :user_started_session, :session_updates
       
       def initialize
         @sessions = Pomodoro::SessionHistory.new
@@ -20,6 +20,7 @@ module Pomodoro
         if during_session
           @actual_session.advance
           user_ended_session(@actual_session) if @actual_session.completed?
+          session_updates(@actual_session)
         end
       end
 
@@ -32,6 +33,7 @@ module Pomodoro
           user_interrupts_session
         else
           spawn_new_pomodoro
+          user_started_session(@actual_session)
         end
       end
 

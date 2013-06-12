@@ -14,7 +14,6 @@ module Pomodoro
       end
       private
       def inject!
-        puts "Injected glue"
         _after @timer, :tick, @usecase.method(:second_elapsed) 
       end
     end

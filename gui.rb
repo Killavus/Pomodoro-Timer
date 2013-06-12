@@ -8,17 +8,19 @@ module Pomodoro
   class Gui
     endpoints :action_clicked
 
-    def initialize(args)
-      @app = Qt::Application.new(args)
+    attr_reader :app, 
+                :main
+
+    def initialize(app)
+      @app = app
+      @main = Component::MainWindow.new(self)
     end
 
     def start!
       spawn_main_window
-      @app.exec
     end
 
     def spawn_main_window
-      @main = Component::MainWindow.new(self)
       @main.show
     end
   end
