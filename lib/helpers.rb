@@ -13,8 +13,16 @@ module Endpoints
 end
 
 module GlueHelpers
-  def aop_after(object, method, advice)
-    after object: object, method: method do |jp, obj, *args|
+  include Aquarium::Aspects
+
+  def _after(object, method, advice)
+    Aspect.new :after, object: object, method: method do |jp, obj, *args|
+      advice.call(*args)
+    end
+  end
+
+  def _before(object, method, advice)
+    Aspect.new :before, object: object, method: method do |jp, obj, *args|
       advice.call(*args)
     end
   end

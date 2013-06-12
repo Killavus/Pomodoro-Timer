@@ -10,8 +10,8 @@ module Pomodoro
   class Application
     def run!
       load_usecases
-      load_gui
       load_adapters
+      load_gui
     end
 
     private
@@ -27,6 +27,8 @@ module Pomodoro
 
     def load_adapters
       @timer = Adapter::Timer.new
+
+      Glue::Timer.new(@main_usecase, @timer)
     end
   end
 end
